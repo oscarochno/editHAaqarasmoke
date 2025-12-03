@@ -7,71 +7,71 @@ blueprint:
   domain: automation
   source_url: https://github.com/yourrepo/zha-aqara-smoke-blueprint
 
-input:
+  input:
 
-  smoke_sensors:
-    name: Smoke state entities (ZHA)
-    selector:
-      entity:
-        domain: binary_sensor
-        device_class: smoke
-        multiple: true
+    smoke_sensors:
+      name: Smoke state entities (ZHA)
+      selector:
+        entity:
+          domain: binary_sensor
+          device_class: smoke
+          multiple: true
 
-  linkage_alarm:
-    name: Linkage alarm entity (optional)
-    selector:
-      entity:
-        domain: binary_sensor
+    linkage_alarm:
+      name: Linkage alarm entity (optional)
+      selector:
+        entity:
+          domain: binary_sensor
 
-  self_test_button:
-    name: Self-test button
-    selector:
-      entity:
-        domain: button
+    self_test_button:
+      name: Self-test button
+      selector:
+        entity:
+          domain: button
 
-  buzzer_alarm:
-    name: Buzzer manual alarm switch
-    selector:
-      entity:
-        domain: switch
+    buzzer_alarm:
+      name: Buzzer manual alarm switch
+      selector:
+        entity:
+          domain: switch
 
-  buzzer_mute:
-    name: Buzzer manual mute switch
-    selector:
-      entity:
-        domain: switch
+    buzzer_mute:
+      name: Buzzer manual mute switch
+      selector:
+        entity:
+          domain: switch
 
-  enable_linkage:
-    name: Linkage alarm enable switch
-    selector:
-      entity:
-        domain: switch
+    enable_linkage:
+      name: Linkage alarm enable switch
+      selector:
+        entity:
+          domain: switch
 
-  heartbeat_indicator:
-    name: Heartbeat indicator switch
-    selector:
-      entity:
-        domain: switch
+    heartbeat_indicator:
+      name: Heartbeat indicator switch
+      selector:
+        entity:
+          domain: switch
 
-  alarm_actions:
-    name: Automation - On Smoke Alarm
-    selector:
-      action: {}
+    alarm_actions:
+      name: Automation - On Smoke Alarm
+      selector:
+        action: {}
 
-  linkage_actions:
-    name: Automation - On Linkage Alarm
-    selector:
-      action: {}
+    linkage_actions:
+      name: Automation - On Linkage Alarm
+      selector:
+        action: {}
 
-  test_actions:
-    name: Automation - On Self-Test
-    selector:
-      action: {}
+    test_actions:
+      name: Automation - On Self-Test
+      selector:
+        action: {}
 
-  clear_actions:
-    name: Automation - On Alarm Cleared
-    selector:
-      action: {}
+    clear_actions:
+      name: Automation - On Alarm Cleared
+      selector:
+        action: {}
 
 mode: single
 max_exceeded: silent
@@ -87,7 +87,7 @@ variables:
 
 trigger:
 
-  # Smoke detected from ANY detector
+  # Smoke detected from ANY selected detector
   - platform: state
     entity_id: !input smoke_sensors
     from: "off"
@@ -101,11 +101,12 @@ trigger:
     to: "on"
     id: linkage_alarm
 
-  # Self-test pressed (ZHA event)
+  # Self-test pressed — using zha_event (keeps it general)
   - platform: event
     event_type: zha_event
     event_data:
-      device_id: "{{ device_id(self_test_button) }}"
+      device_id: >
+        {{ device_id(self_test_button) }}
     id: self_test
 
   # Any alarm cleared
