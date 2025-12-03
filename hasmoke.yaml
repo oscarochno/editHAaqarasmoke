@@ -108,9 +108,8 @@ blueprint:
       name: Smoke detectors
       description: The smoke detectors you want to link.
       selector:
-        # TODO: optimize the filter or entity option to be more fault tolerant to
-        #       variations of model names
         device:
+          integration: Zigbee Home Automation
           multiple: true
     alarm__notify_devices:
       name: Mobile device to notify on smoke alarms
