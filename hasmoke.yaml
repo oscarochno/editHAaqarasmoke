@@ -7,12 +7,13 @@ blueprint:
   domain: automation
   source_url: https://github.com/yourrepo/zha-aqara-smoke-blueprint
   input:
-    smoke_sensor:
-      name: Smoke state entity (ZHA)
-      selector:
-        entity:
-          domain: binary_sensor
-          device_class: smoke
+  smoke_sensors:
+    name: Smoke state entities (ZHA)
+    selector:
+      entity:
+        domain: binary_sensor
+        device_class: smoke
+        multiple: true
 
     linkage_alarm:
       name: Linkage alarm entity (optional)
@@ -74,7 +75,7 @@ mode: single
 max_exceeded: silent
 
 variables:
-  smoke_sensor: !input smoke_sensor
+  smoke_sensors: !input smoke_sensors
   linkage_alarm: !input linkage_alarm
   self_test_button: !input self_test_button
   buzzer_alarm: !input buzzer_alarm
@@ -86,7 +87,7 @@ trigger:
 
   # Smoke detected
   - platform: state
-    entity_id: !input smoke_sensor
+    entity_id: !input smoke_sensors
     from: "off"
     to: "on"
     id: smoke_alarm
@@ -108,7 +109,7 @@ trigger:
 
   # Alarm cleared
   - platform: state
-    entity_id: !input smoke_sensor
+    entity_id: !input smoke_sensors
     from: "on"
     to: "off"
     id: clear
