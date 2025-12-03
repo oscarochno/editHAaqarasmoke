@@ -111,31 +111,6 @@ blueprint:
         # TODO: optimize the filter or entity option to be more fault tolerant to
         #       variations of model names
         device:
-          filter:
-            - integration: Zigbee Home Automation
-              manufacturer: Aqara
-              model: Smart smoke detector
-            - integration: Zigbee Home Automation
-              manufacturer: Aqara
-              model: lumi.sensor_smoke.acn03
-            - integration: mqtt
-              manufacturer: Zigbee Home Automation
-              model: Smart smoke detector (JY-GZ-01AQ)
-            - integration: mqtt
-              manufacturer: Aqara
-              model: Smart smoke detector (JY-GZ-01AQ)
-            - integration: Zigbee Home Automation
-              manufacturer: Aqara
-              model: (JY-GZ-01AQ)
-            - integration: mqtt
-              manufacturer: Aqara
-              model: (JY-GZ-01AQ)
-            - integration: Zigbee Home Automation
-              manufacturer: Aqara
-              model: JY-GZ-01AQ
-            - integration: mqtt
-              manufacturer: Aqara
-              model: JY-GZ-01AQ
           multiple: true
     alarm__notify_devices:
       name: Mobile device to notify on smoke alarms
